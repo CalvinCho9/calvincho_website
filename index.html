@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calvin Cho</title>
+  <link rel="icon" type="image/png" href="logos/icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <style>
@@ -63,15 +64,14 @@
       height: 56px;
     }
 
-    .nav-name {
-      font-family: var(--serif);
-      font-size: 18px;
-      color: var(--text);
-      letter-spacing: -.01em;
+    .nav-logo {
+      height: 28px;
+      width: auto;
       cursor: pointer;
       transition: opacity .2s;
+      display: block;
     }
-    .nav-name:hover { opacity: .6; }
+    .nav-logo:hover { opacity: .6; }
 
     .nav-links { display: flex; gap: 32px; }
 
@@ -548,7 +548,7 @@
   <!-- Navigation -->
   <nav class="nav">
     <div class="nav-inner">
-      <span class="nav-name" onclick="navigate('home')">Calvin Cho</span>
+      <img src="logos/icon.png" alt="Calvin Cho" class="nav-logo" onclick="navigate('home')" />
       <div class="nav-links">
         <button class="nav-link active" id="nav-home" onclick="navigate('home')">Home</button>
         <button class="nav-link" id="nav-about" onclick="navigate('about')">About</button>
