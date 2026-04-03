@@ -110,7 +110,7 @@
     /* ── HOME ── */
     .home-page {
       padding-top: 100px;
-      padding-bottom: 120px;
+      padding-bottom: 0;
     }
 
     .home-hero {
@@ -182,6 +182,141 @@
       opacity: 1;
     }
     .home-link svg { width: 15px; height: 15px; }
+
+    /* ── PROJECTS ── */
+    .projects-section {
+      margin: 72px calc(-1 * var(--page-px)) 0;
+      padding: 64px var(--page-px) 72px;
+      background: #0c0f14;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .projects-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #39d98a;
+      margin-bottom: 6px;
+    }
+
+    .projects-heading {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 400;
+      color: #eef4f1;
+      letter-spacing: -.01em;
+      margin-bottom: 40px;
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: center;
+      padding: 32px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      margin-bottom: 20px;
+    }
+    .project-card:last-child { margin-bottom: 0; }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #39d98a;
+      background: rgba(57,217,138,.1);
+      border: 1px solid rgba(57,217,138,.2);
+      border-radius: 4px;
+      padding: 3px 8px;
+      margin-bottom: 10px;
+    }
+
+    .project-title {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 400;
+      color: #eef4f1;
+      letter-spacing: -.01em;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 13.5px;
+      color: rgba(255,255,255,.5);
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .project-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .project-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 6px;
+      transition: all .2s;
+      font-family: var(--sans);
+    }
+    .project-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    .project-btn-primary {
+      background: rgba(57,217,138,.1);
+      border: 1px solid rgba(57,217,138,.25);
+      color: #39d98a;
+    }
+    .project-btn-primary:hover {
+      background: rgba(57,217,138,.18);
+      border-color: rgba(57,217,138,.5);
+      color: #39d98a;
+      opacity: 1;
+    }
+
+    .project-btn-secondary {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.6);
+    }
+    .project-btn-secondary:hover {
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      opacity: 1;
+    }
+
+    .project-video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(57,217,138,.12),
+        0 12px 48px rgba(0,0,0,.7),
+        0 0 80px rgba(57,217,138,.04);
+    }
+
+    .project-video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+    }
+
+    @media (max-width: 640px) {
+      .projects-section { border-radius: 12px 12px 0 0; padding-top: 48px; }
+      .project-card { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+      .project-video-wrap { order: -1; }
+    }
 
     /* ── ABOUT ── */
     .about-page {
@@ -465,6 +600,56 @@
         </div>
       </div>
     </div>
+
+    <!-- Projects -->
+    <section class="projects-section">
+      <p class="projects-label">Personal Projects</p>
+      <h2 class="projects-heading">Things I've Built</h2>
+
+      <!-- NeuroViz -->
+      <div class="project-card">
+        <div class="project-info">
+          <span class="project-tag">Neuroscience · Visualization</span>
+          <h3 class="project-title">NeuroViz</h3>
+          <p class="project-desc">A real-time 3D mapping tool for 64-channel EEG data, allowing for dynamic visualization of brain activity across different functional regions.</p>
+          <div class="project-btns">
+            <a href="https://calvincho9.github.io/neuroviz/" target="_blank" class="project-btn project-btn-primary">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+              View on GitHub
+            </a>
+            <a href="https://calvincho9.github.io/neuroviz/" target="_blank" class="project-btn project-btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Live Demo
+            </a>
+          </div>
+        </div>
+        <div class="project-video-wrap">
+          <iframe src="https://www.youtube.com/embed/sjrI1Nkojn4?autoplay=1&mute=1&loop=1&playlist=sjrI1Nkojn4&controls=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- Phantom Portfolio -->
+      <div class="project-card">
+        <div class="project-info">
+          <span class="project-tag">Research · Portfolio</span>
+          <h3 class="project-title">Phantom Portfolio</h3>
+          <p class="project-desc">A specialized portfolio platform designed for biomedical researchers and computer scientists to showcase complex data-driven projects.</p>
+          <div class="project-btns">
+            <a href="https://calvincho9.github.io/phantom-portfolio/" target="_blank" class="project-btn project-btn-primary">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+              View on GitHub
+            </a>
+            <a href="https://calvincho9.github.io/phantom-portfolio/" target="_blank" class="project-btn project-btn-secondary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Live Demo
+            </a>
+          </div>
+        </div>
+        <div class="project-video-wrap">
+          <iframe src="https://www.youtube.com/embed/HUaB9UerlEA?autoplay=1&mute=1&loop=1&playlist=HUaB9UerlEA&controls=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
   </div>
 
   <!-- ABOUT PAGE -->
