@@ -45,24 +45,13 @@ a:hover { opacity: 0.6; }
 
 img { display: block; max-width: 100%; }
 
-/* ─── Word cloud background ───────────────── */
+/* ─── Cell canvas background ──────────────── */
 
-.word-cloud-bg {
+.cell-canvas {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  overflow: hidden;
   z-index: 0;
-  user-select: none;
-}
-
-.cloud-word {
-  position: absolute;
-  font-family: var(--mono);
-  color: var(--text);
-  white-space: nowrap;
-  line-height: 1;
-  transition: color var(--ease);
 }
 
 /* ─── Site wrapper ────────────────────────── */
@@ -275,6 +264,71 @@ img { display: block; max-width: 100%; }
   border: none;
   pointer-events: none;
 }
+
+.project-img-wrap {
+  width: 100%;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  transition: background var(--ease), border-color var(--ease);
+}
+
+.project-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── CV page ─────────────────────────────── */
+
+.cv-frame {
+  width: 100%;
+  height: calc(100vh - 220px);
+  min-height: 520px;
+  border: 1px solid var(--border);
+  display: block;
+  transition: border-color var(--ease);
+}
+
+.cv-fallback {
+  font-family: var(--mono);
+  font-size: 0.775rem;
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+
+.cv-fallback a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ─── Writing page ────────────────────────── */
+
+.writing-intro {
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.substack-link {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity var(--ease);
+}
+
+.substack-link:hover { opacity: 0.6; }
+
+.writing-posts { margin-top: 2rem; }
 
 /* ─── Sections ────────────────────────────── */
 

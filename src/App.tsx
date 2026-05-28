@@ -1,46 +1,100 @@
-import { Component, JSX, For, Show, createSignal, onMount } from "solid-js";
+import { Component, JSX, Show, createSignal, onMount, onCleanup } from "solid-js";
 import { A, useLocation } from "@solidjs/router";
 
-const CLOUD_WORDS = [
-  { w: "neuroscience",    x: 7,   y: 12,  s: 1.10, r: -12, o: 0.09 },
-  { w: "biology",         x: 74,  y: 7,   s: 0.90, r:   8, o: 0.10 },
-  { w: "Duke",            x: 47,  y: 92,  s: 1.30, r:  -5, o: 0.11 },
-  { w: "Durham",          x: 84,  y: 28,  s: 0.90, r:  15, o: 0.09 },
-  { w: "California",      x: 4,   y: 57,  s: 1.00, r:  -8, o: 0.10 },
-  { w: "Python",          x: 88,  y: 68,  s: 0.90, r:  10, o: 0.09 },
-  { w: "imaging",         x: 32,  y: 82,  s: 1.00, r: -18, o: 0.10 },
-  { w: "genomics",        x: 61,  y: 18,  s: 1.10, r:   5, o: 0.09 },
-  { w: "health",          x: 19,  y: 42,  s: 0.80, r:  12, o: 0.11 },
-  { w: "research",        x: 76,  y: 55,  s: 1.20, r: -10, o: 0.09 },
-  { w: "AI",              x: 52,  y: 48,  s: 1.70, r:   7, o: 0.10 },
-  { w: "medicine",        x: 11,  y: 78,  s: 0.90, r: -15, o: 0.09 },
-  { w: "data",            x: 90,  y: 14,  s: 1.10, r:  20, o: 0.10 },
-  { w: "statistics",      x: 38,  y: 9,   s: 0.85, r:  -7, o: 0.11 },
-  { w: "cells",           x: 66,  y: 86,  s: 0.80, r:  14, o: 0.09 },
-  { w: "proteins",        x: 21,  y: 93,  s: 0.85, r: -10, o: 0.10 },
-  { w: "NASA",            x: 92,  y: 44,  s: 0.90, r:   8, o: 0.09 },
-  { w: "clinical",        x: 42,  y: 32,  s: 0.90, r: -14, o: 0.10 },
-  { w: "headache",        x: 57,  y: 76,  s: 0.85, r:  12, o: 0.09 },
-  { w: "UCSF",            x: 16,  y: 63,  s: 0.80, r: -18, o: 0.10 },
-  { w: "Regeneron",       x: 79,  y: 80,  s: 0.85, r:   5, o: 0.09 },
-  { w: "뇌과학",           x: 6,   y: 32,  s: 1.00, r: -10, o: 0.09 },
-  { w: "연구",             x: 83,  y: 22,  s: 0.90, r:  15, o: 0.10 },
-  { w: "과학",             x: 49,  y: 16,  s: 0.85, r:  -8, o: 0.09 },
-  { w: "건강",             x: 71,  y: 93,  s: 0.80, r:  10, o: 0.10 },
-  { w: "생물학",           x: 27,  y: 19,  s: 0.90, r:  -5, o: 0.09 },
-  { w: "machine learning", x: 9,  y: 88,  s: 0.75, r:   8, o: 0.09 },
-  { w: "ion channels",    x: 69,  y: 38,  s: 0.75, r: -16, o: 0.10 },
-  { w: "astrocytes",      x: 37,  y: 56,  s: 0.85, r:  12, o: 0.09 },
-  { w: "bioinformatics",  x: 87,  y: 52,  s: 0.80, r:  -6, o: 0.10 },
-  { w: "MATLAB",          x: 52,  y: 63,  s: 0.90, r:  18, o: 0.09 },
-  { w: "space biology",   x: 23,  y: 70,  s: 0.80, r: -20, o: 0.10 },
-  { w: "TypeScript",      x: 79,  y: 5,   s: 0.85, r:   7, o: 0.09 },
-  { w: "neurology",       x: 14,  y: 8,   s: 1.00, r: -10, o: 0.10 },
-  { w: "multi-omics",     x: 61,  y: 50,  s: 0.85, r:  14, o: 0.09 },
-  { w: "Orange County",   x: 42,  y: 73,  s: 0.80, r:  -7, o: 0.10 },
-  { w: "미국",             x: 94,  y: 82,  s: 0.85, r: -12, o: 0.09 },
-  { w: "공부",             x: 3,   y: 20,  s: 0.75, r:  13, o: 0.09 },
-] as const;
+/* ─── Cell animation ──────────────────────── */
+
+type Cell = {
+  x: number; y: number; r: number;
+  vx: number; vy: number;
+  phase: number; pulseSpeed: number;
+};
+
+function makeCell(w: number, h: number): Cell {
+  return {
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: 10 + Math.random() * 14,
+    vx: (Math.random() - 0.5) * 0.22,
+    vy: (Math.random() - 0.5) * 0.22,
+    phase: Math.random() * Math.PI * 2,
+    pulseSpeed: 0.007 + Math.random() * 0.011,
+  };
+}
+
+function drawCell(ctx: CanvasRenderingContext2D, c: Cell, dark: boolean) {
+  const pulse = 1 + 0.07 * Math.sin(c.phase);
+  const r = c.r * pulse;
+
+  // soft body with radial gradient
+  const bodyAlpha  = dark ? 0.10 : 0.09;
+  const nuclAlpha  = dark ? 0.19 : 0.17;
+  const [R, G, B]  = dark ? [160, 200, 240] : [40, 70, 120];
+
+  const grad = ctx.createRadialGradient(
+    c.x - r * 0.25, c.y - r * 0.25, 0,
+    c.x, c.y, r,
+  );
+  grad.addColorStop(0,   `rgba(${R},${G},${B},${bodyAlpha * 1.4})`);
+  grad.addColorStop(0.65,`rgba(${R},${G},${B},${bodyAlpha})`);
+  grad.addColorStop(1,   `rgba(${R},${G},${B},0)`);
+
+  ctx.beginPath();
+  ctx.arc(c.x, c.y, r, 0, Math.PI * 2);
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // nucleus
+  ctx.beginPath();
+  ctx.arc(c.x + r * 0.12, c.y - r * 0.12, r * 0.36, 0, Math.PI * 2);
+  ctx.fillStyle = `rgba(${R},${G},${B},${nuclAlpha})`;
+  ctx.fill();
+}
+
+function startCellAnimation(canvas: HTMLCanvasElement, isDark: () => boolean) {
+  const ctx = canvas.getContext("2d")!;
+  const dpr = window.devicePixelRatio || 1;
+  let w = 0, h = 0, cells: Cell[] = [];
+
+  const resize = () => {
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width  = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width  = w + "px";
+    canvas.style.height = h + "px";
+    ctx.scale(dpr, dpr);
+    const n = Math.min(38, Math.max(20, Math.floor((w * h) / 28000)));
+    cells = Array.from({ length: n }, () => makeCell(w, h));
+  };
+
+  resize();
+  window.addEventListener("resize", resize);
+
+  let raf = 0;
+  const draw = () => {
+    ctx.clearRect(0, 0, w, h);
+    const dark = isDark();
+    for (const c of cells) {
+      c.phase += c.pulseSpeed;
+      c.x += c.vx;
+      c.y += c.vy;
+      if (c.x < -c.r * 2) c.x = w + c.r;
+      if (c.x > w + c.r * 2) c.x = -c.r;
+      if (c.y < -c.r * 2) c.y = h + c.r;
+      if (c.y > h + c.r * 2) c.y = -c.r;
+      drawCell(ctx, c, dark);
+    }
+    raf = requestAnimationFrame(draw);
+  };
+  draw();
+
+  return () => {
+    cancelAnimationFrame(raf);
+    window.removeEventListener("resize", resize);
+  };
+}
+
+/* ─── Icons ───────────────────────────────── */
 
 const MoonIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -64,14 +118,17 @@ const SunIcon = () => (
   </svg>
 );
 
+/* ─── App ─────────────────────────────────── */
+
 const App: Component<{ children?: JSX.Element }> = (props) => {
   const location = useLocation();
   const [dark, setDark] = createSignal(false);
+  let canvas!: HTMLCanvasElement;
 
   onMount(() => {
-    try {
-      setDark(localStorage.getItem("theme") === "dark");
-    } catch (_) {}
+    try { setDark(localStorage.getItem("theme") === "dark"); } catch (_) {}
+    const stop = startCellAnimation(canvas, dark);
+    onCleanup(stop);
   });
 
   const toggleDark = () => {
@@ -91,24 +148,7 @@ const App: Component<{ children?: JSX.Element }> = (props) => {
 
   return (
     <>
-      <div class="word-cloud-bg" aria-hidden="true">
-        <For each={CLOUD_WORDS}>
-          {(item) => (
-            <span
-              class="cloud-word"
-              style={{
-                left: `${item.x}%`,
-                top: `${item.y}%`,
-                "font-size": `${item.s}rem`,
-                transform: `rotate(${item.r}deg)`,
-                opacity: item.o,
-              }}
-            >
-              {item.w}
-            </span>
-          )}
-        </For>
-      </div>
+      <canvas ref={canvas} class="cell-canvas" aria-hidden="true" />
 
       <div class="site-wrapper">
         <header class="site-header">
@@ -124,7 +164,7 @@ const App: Component<{ children?: JSX.Element }> = (props) => {
           <nav class="site-nav">
             <A href="/" class="nav-link" classList={{ active: isActive("/") }}>Home</A>
             <span class="nav-sep">|</span>
-            <A href="/about" class="nav-link" classList={{ active: isActive("/about") }}>About</A>
+            <A href="/cv" class="nav-link" classList={{ active: isActive("/cv") }}>CV</A>
             <span class="nav-sep">|</span>
             <A href="/blog" class="nav-link" classList={{ active: isActive("/blog") }}>Writing</A>
           </nav>
