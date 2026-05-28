@@ -45,14 +45,6 @@ a:hover { opacity: 0.6; }
 
 img { display: block; max-width: 100%; }
 
-/* ─── Cell canvas background ──────────────── */
-
-.cell-canvas {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* ─── Site wrapper ────────────────────────── */
 
