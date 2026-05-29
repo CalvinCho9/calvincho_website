@@ -27,7 +27,6 @@ const Home: Component = () => {
         complexity and clinical decision-making.
       </p>
 
-      <p class="home-location">Durham, NC | Orange County, CA | San Francisco, CA</p>
 
       <section class="projects-section">
         <p class="projects-heading">Things I've Built</p>
