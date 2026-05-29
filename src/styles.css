@@ -276,27 +276,135 @@ img { display: block; max-width: 100%; }
 
 /* ─── CV page ─────────────────────────────── */
 
-.cv-frame {
-  width: 100%;
-  height: calc(100vh - 220px);
-  min-height: 520px;
-  border: 1px solid var(--border);
-  display: block;
-  transition: border-color var(--ease);
+.cv-header {
+  margin-bottom: 2rem;
 }
 
-.cv-fallback {
+.cv-name {
   font-family: var(--mono);
-  font-size: 0.775rem;
-  color: var(--muted);
-  margin-top: 0.6rem;
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: var(--text);
+  margin-bottom: 0.4rem;
 }
 
-.cv-fallback a {
+.cv-contact {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cv-contact a {
   color: var(--text);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+
+.cv-sep { color: var(--border); }
+
+.cv-block {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cv-block:last-child { border-bottom: none; }
+
+.cv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cv-institution {
+  font-family: var(--mono);
+  font-weight: bold;
+  font-size: 0.875rem;
+  color: var(--text);
+}
+
+.cv-date {
+  font-family: var(--mono);
+  font-size: 0.775rem;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cv-role {
+  font-family: var(--mono);
+  font-size: 0.825rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.15rem;
+}
+
+.cv-detail {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 0.2rem;
+}
+
+.cv-bullets {
+  margin-top: 0.5rem;
+  padding-left: 1.2rem;
+  list-style: disc;
+}
+
+.cv-bullets li {
+  font-family: var(--mono);
+  font-size: 0.825rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 0.25rem;
+}
+
+.cv-bullets li::marker { color: var(--border); }
+
+.cv-skills { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.cv-skill-row {
+  font-family: var(--mono);
+  font-size: 0.825rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.cv-skill-label {
+  font-weight: bold;
+  color: var(--text);
+  margin-right: 0.5rem;
+}
+
+.cv-skill-label::after { content: ":"; }
+
+.cv-pub-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 1rem 0 0.4rem;
+}
+
+.cv-pub {
+  font-family: var(--mono);
+  font-size: 0.825rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+
+.cv-pub strong { color: var(--text); font-weight: bold; }
+.cv-pub em { font-style: italic; }
 
 /* ─── Writing page ────────────────────────── */
 
