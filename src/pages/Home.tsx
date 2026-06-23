@@ -31,6 +31,40 @@ const Home: Component = () => {
       <section class="projects-section">
         <p class="projects-heading">Things I've Built</p>
 
+        <div class="project-card" style="grid-template-columns: 1fr">
+          <div>
+            <span class="project-tag">Python · ML Segmentation · Calcium Imaging · HPC</span>
+            <h3 class="project-title">Automated GCaMP Calcium-Imaging Analysis Pipeline</h3>
+            <p class="project-desc">
+              An ML-based image-analysis pipeline for GCaMP calcium-imaging data, built in Dr. Carlene
+              Moore's lab at Duke School of Medicine. Replaced manual frame-by-frame analysis with
+              automated cell segmentation—cutting per-image processing from ~8 minutes to ~6 seconds
+              (&gt;99% faster) across 5,000+ images supporting clinical-trial research on neurogenic
+              inflammation. Built in Python using Cellpose and EBImage for cell segmentation and signal
+              quantification, run on an HPC cluster.
+            </p>
+          </div>
+        </div>
+
+        <div class="project-card" style="grid-template-columns: 1fr">
+          <div>
+            <span class="project-tag">Full-Stack · Healthcare · Maps</span>
+            <h3 class="project-title">Vouch Health — NC Hospital Finder</h3>
+            <p class="project-desc">
+              A web app that helps patients find hospitals across North Carolina by ZIP code and insurer,
+              mapping 126 facilities and flagging Critical Access Hospitals that serve rural communities.
+              Built to make hospital access and coverage information legible to patients navigating the
+              system.
+            </p>
+            <div class="project-btns">
+              <a href="https://vouchhealth.org" target="_blank" rel="noopener noreferrer" class="project-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div class="project-card">
           <div>
             <span class="project-tag">Neuroscience · Visualization</span>
