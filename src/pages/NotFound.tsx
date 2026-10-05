@@ -21,12 +21,11 @@ const NotFound: Component = () => {
         when={!target}
         fallback={<p class="notfound-msg">Redirecting&hellip;</p>}
       >
-        <p class="eyebrow">err 404</p>
-        <h1 class="notfound-title">No signal at this path.</h1>
+        <h1 class="notfound-title">Page not found</h1>
         <p class="notfound-msg">
           <code>{location.pathname}</code> doesn't exist. It may have moved.
         </p>
-        <A href="/" class="btn">&larr; Back home</A>
+        <A href="/">&larr; Back home</A>
       </Show>
     </div>
   );

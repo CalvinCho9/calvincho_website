@@ -9,14 +9,9 @@ const App: Component<{ children?: JSX.Element }> = (props) => {
 
   return (
     <div class="site">
-      <div class="backdrop" aria-hidden="true" />
-
       <header class="site-header">
         <div class="container header-inner">
-          <A href="/" class="brand">
-            <span class="brand-mark">CC</span>
-            <span class="brand-name">Calvin Cho</span>
-          </A>
+          <A href="/" class="brand">Calvin Cho</A>
           <nav class="site-nav">
             <A href="/" class="nav-link" classList={{ active: isActive("/") }}>Home</A>
             <A href="/cv" class="nav-link" classList={{ active: isActive("/cv") }}>CV</A>
