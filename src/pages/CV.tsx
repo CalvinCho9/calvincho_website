@@ -11,6 +11,7 @@ const CV: Component = () => {
 
       {/* ── Header ── */}
       <div class="cv-header">
+        <p class="eyebrow">Curriculum vitae</p>
         <h1 class="cv-name">Calvin (Hwalang) Cho</h1>
         <div class="cv-contact">
           <a href="mailto:calvincho23@gmail.com">calvincho23@gmail.com</a>
